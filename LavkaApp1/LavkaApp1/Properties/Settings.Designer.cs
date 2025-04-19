@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LavkaApp.Properties
+namespace LavkaApp1.Properties
 {
 
 

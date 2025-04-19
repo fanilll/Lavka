@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eb667664faca4f41bc675cc02706c27d" Name="Diagram1">
+        <EntityTypeShape EntityType="LavkaBaseModel.Appointments" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Balances" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Collections" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Masters" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.QualificationLevels" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.QualificationRequests" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Reviews" Width="1.5" PointX="13.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Roles" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Services" Width="1.5" PointX="10.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Transactions" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LavkaBaseModel.Users" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Appointme__Maste__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Appointme__Servi__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Appointme__UserI__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Balances__UserID__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Services__Collec__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Masters__LevelID__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Masters__UserID__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Qualifica__Maste__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Reviews__MasterI__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Reviews__Service__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Reviews__UserID__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Users__RoleID__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.FK__Transacti__UserI__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="LavkaBaseModel.MasterServices" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

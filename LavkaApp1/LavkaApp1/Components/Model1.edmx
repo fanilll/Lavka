@@ -1,0 +1,922 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LavkaBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointments">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="MasterID" Type="int" Nullable="false" />
+          <Property Name="AppointmentDate" Type="datetime" Nullable="false" />
+          <Property Name="QueueNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="BalanceID" />
+          </Key>
+          <Property Name="BalanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Collections">
+          <Key>
+            <PropertyRef Name="CollectionID" />
+          </Key>
+          <Property Name="CollectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Masters">
+          <Key>
+            <PropertyRef Name="MasterID" />
+          </Key>
+          <Property Name="MasterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LevelID" Type="int" Nullable="false" />
+          <Property Name="Bio" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MasterServices">
+          <Key>
+            <PropertyRef Name="MasterID" />
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="MasterID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QualificationLevels">
+          <Key>
+            <PropertyRef Name="LevelID" />
+          </Key>
+          <Property Name="LevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QualificationRequests">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MasterID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" />
+          <Property Name="MasterID" Type="int" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CollectionID" Type="int" Nullable="false" />
+          <Property Name="LastModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Appointme__Maste__5DCAEF64">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Servi__5CD6CB2B">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__UserI__5BE2A6F2">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Balances__UserID__68487DD7">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Balances" Type="Self.Balances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Balances">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Masters__LevelID__5165187F">
+          <End Role="QualificationLevels" Type="Self.QualificationLevels" Multiplicity="1" />
+          <End Role="Masters" Type="Self.Masters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QualificationLevels">
+              <PropertyRef Name="LevelID" />
+            </Principal>
+            <Dependent Role="Masters">
+              <PropertyRef Name="LevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Masters__UserID__5070F446">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Masters" Type="Self.Masters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Masters">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MasterSer__Maste__5812160E">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+          <End Role="MasterServices" Type="Self.MasterServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="MasterServices">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MasterSer__Servi__59063A47">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="MasterServices" Type="Self.MasterServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="MasterServices">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Qualifica__Maste__6FE99F9F">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+          <End Role="QualificationRequests" Type="Self.QualificationRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="QualificationRequests">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__MasterI__628FA481">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__Service__619B8048">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserID__60A75C0F">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Services__Collec__5441852A">
+          <End Role="Collections" Type="Self.Collections" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collections">
+              <PropertyRef Name="CollectionID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="CollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__UserI__6C190EBB">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__4BAC3F29">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LavkaBaseModelContainer">
+          <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Collections" EntityType="Self.Collections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Masters" EntityType="Self.Masters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterServices" EntityType="Self.MasterServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QualificationLevels" EntityType="Self.QualificationLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QualificationRequests" EntityType="Self.QualificationRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointme__Maste__5DCAEF64" Association="Self.FK__Appointme__Maste__5DCAEF64">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Servi__5CD6CB2B" Association="Self.FK__Appointme__Servi__5CD6CB2B">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__UserI__5BE2A6F2" Association="Self.FK__Appointme__UserI__5BE2A6F2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Balances__UserID__68487DD7" Association="Self.FK__Balances__UserID__68487DD7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Balances" EntitySet="Balances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Masters__LevelID__5165187F" Association="Self.FK__Masters__LevelID__5165187F">
+            <End Role="QualificationLevels" EntitySet="QualificationLevels" />
+            <End Role="Masters" EntitySet="Masters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Masters__UserID__5070F446" Association="Self.FK__Masters__UserID__5070F446">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Masters" EntitySet="Masters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MasterSer__Maste__5812160E" Association="Self.FK__MasterSer__Maste__5812160E">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="MasterServices" EntitySet="MasterServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MasterSer__Servi__59063A47" Association="Self.FK__MasterSer__Servi__59063A47">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="MasterServices" EntitySet="MasterServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Qualifica__Maste__6FE99F9F" Association="Self.FK__Qualifica__Maste__6FE99F9F">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="QualificationRequests" EntitySet="QualificationRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__MasterI__628FA481" Association="Self.FK__Reviews__MasterI__628FA481">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__Service__619B8048" Association="Self.FK__Reviews__Service__619B8048">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserID__60A75C0F" Association="Self.FK__Reviews__UserID__60A75C0F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Services__Collec__5441852A" Association="Self.FK__Services__Collec__5441852A">
+            <End Role="Collections" EntitySet="Collections" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__UserI__6C190EBB" Association="Self.FK__Transacti__UserI__6C190EBB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__4BAC3F29" Association="Self.FK__Users__RoleID__4BAC3F29">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LavkaBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointments">
+          <Key>
+            <PropertyRef Name="AppointmentID" />
+          </Key>
+          <Property Name="AppointmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="MasterID" Type="Int32" Nullable="false" />
+          <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="QueueNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK__Appointme__Maste__5DCAEF64" FromRole="Appointments" ToRole="Masters" />
+          <NavigationProperty Name="Services" Relationship="Self.FK__Appointme__Servi__5CD6CB2B" FromRole="Appointments" ToRole="Services" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Appointme__UserI__5BE2A6F2" FromRole="Appointments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="BalanceID" />
+          </Key>
+          <Property Name="BalanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Balances__UserID__68487DD7" FromRole="Balances" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Collections">
+          <Key>
+            <PropertyRef Name="CollectionID" />
+          </Key>
+          <Property Name="CollectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Services" Relationship="Self.FK__Services__Collec__5441852A" FromRole="Collections" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="Masters">
+          <Key>
+            <PropertyRef Name="MasterID" />
+          </Key>
+          <Property Name="MasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LevelID" Type="Int32" Nullable="false" />
+          <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Maste__5DCAEF64" FromRole="Masters" ToRole="Appointments" />
+          <NavigationProperty Name="QualificationLevels" Relationship="Self.FK__Masters__LevelID__5165187F" FromRole="Masters" ToRole="QualificationLevels" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Masters__UserID__5070F446" FromRole="Masters" ToRole="Users" />
+          <NavigationProperty Name="QualificationRequests" Relationship="Self.FK__Qualifica__Maste__6FE99F9F" FromRole="Masters" ToRole="QualificationRequests" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__MasterI__628FA481" FromRole="Masters" ToRole="Reviews" />
+          <NavigationProperty Name="Services" Relationship="Self.MasterServices" FromRole="Masters" ToRole="Services" />
+        </EntityType>
+        <EntityType Name="QualificationLevels">
+          <Key>
+            <PropertyRef Name="LevelID" />
+          </Key>
+          <Property Name="LevelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK__Masters__LevelID__5165187F" FromRole="QualificationLevels" ToRole="Masters" />
+        </EntityType>
+        <EntityType Name="QualificationRequests">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MasterID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK__Qualifica__Maste__6FE99F9F" FromRole="QualificationRequests" ToRole="Masters" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" />
+          <Property Name="MasterID" Type="Int32" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK__Reviews__MasterI__628FA481" FromRole="Reviews" ToRole="Masters" />
+          <NavigationProperty Name="Services" Relationship="Self.FK__Reviews__Service__619B8048" FromRole="Reviews" ToRole="Services" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Reviews__UserID__60A75C0F" FromRole="Reviews" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleID__4BAC3F29" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CollectionID" Type="Int32" Nullable="false" />
+          <Property Name="LastModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Servi__5CD6CB2B" FromRole="Services" ToRole="Appointments" />
+          <NavigationProperty Name="Collections" Relationship="Self.FK__Services__Collec__5441852A" FromRole="Services" ToRole="Collections" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__Service__619B8048" FromRole="Services" ToRole="Reviews" />
+          <NavigationProperty Name="Masters" Relationship="Self.MasterServices" FromRole="Services" ToRole="Masters" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Transacti__UserI__6C190EBB" FromRole="Transactions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__UserI__5BE2A6F2" FromRole="Users" ToRole="Appointments" />
+          <NavigationProperty Name="Balances" Relationship="Self.FK__Balances__UserID__68487DD7" FromRole="Users" ToRole="Balances" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK__Masters__UserID__5070F446" FromRole="Users" ToRole="Masters" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Reviews__UserID__60A75C0F" FromRole="Users" ToRole="Reviews" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK__Users__RoleID__4BAC3F29" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__UserI__6C190EBB" FromRole="Users" ToRole="Transactions" />
+        </EntityType>
+        <Association Name="FK__Appointme__Maste__5DCAEF64">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Servi__5CD6CB2B">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__UserI__5BE2A6F2">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Balances__UserID__68487DD7">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Balances" Type="Self.Balances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Balances">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Services__Collec__5441852A">
+          <End Role="Collections" Type="Self.Collections" Multiplicity="1" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collections">
+              <PropertyRef Name="CollectionID" />
+            </Principal>
+            <Dependent Role="Services">
+              <PropertyRef Name="CollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Masters__LevelID__5165187F">
+          <End Role="QualificationLevels" Type="Self.QualificationLevels" Multiplicity="1" />
+          <End Role="Masters" Type="Self.Masters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QualificationLevels">
+              <PropertyRef Name="LevelID" />
+            </Principal>
+            <Dependent Role="Masters">
+              <PropertyRef Name="LevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Masters__UserID__5070F446">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Masters" Type="Self.Masters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Masters">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Qualifica__Maste__6FE99F9F">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+          <End Role="QualificationRequests" Type="Self.QualificationRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="QualificationRequests">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__MasterI__628FA481">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Masters">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__Service__619B8048">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserID__60A75C0F">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleID__4BAC3F29">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__UserI__6C190EBB">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MasterServices">
+          <End Role="Masters" Type="Self.Masters" Multiplicity="*" />
+          <End Role="Services" Type="Self.Services" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="LavkaBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointments" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" />
+          <EntitySet Name="Collections" EntityType="Self.Collections" />
+          <EntitySet Name="Masters" EntityType="Self.Masters" />
+          <EntitySet Name="QualificationLevels" EntityType="Self.QualificationLevels" />
+          <EntitySet Name="QualificationRequests" EntityType="Self.QualificationRequests" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Services" EntityType="Self.Services" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Appointme__Maste__5DCAEF64" Association="Self.FK__Appointme__Maste__5DCAEF64">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Servi__5CD6CB2B" Association="Self.FK__Appointme__Servi__5CD6CB2B">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__UserI__5BE2A6F2" Association="Self.FK__Appointme__UserI__5BE2A6F2">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Balances__UserID__68487DD7" Association="Self.FK__Balances__UserID__68487DD7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Balances" EntitySet="Balances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Services__Collec__5441852A" Association="Self.FK__Services__Collec__5441852A">
+            <End Role="Collections" EntitySet="Collections" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Masters__LevelID__5165187F" Association="Self.FK__Masters__LevelID__5165187F">
+            <End Role="QualificationLevels" EntitySet="QualificationLevels" />
+            <End Role="Masters" EntitySet="Masters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Masters__UserID__5070F446" Association="Self.FK__Masters__UserID__5070F446">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Masters" EntitySet="Masters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Qualifica__Maste__6FE99F9F" Association="Self.FK__Qualifica__Maste__6FE99F9F">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="QualificationRequests" EntitySet="QualificationRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__MasterI__628FA481" Association="Self.FK__Reviews__MasterI__628FA481">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__Service__619B8048" Association="Self.FK__Reviews__Service__619B8048">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserID__60A75C0F" Association="Self.FK__Reviews__UserID__60A75C0F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleID__4BAC3F29" Association="Self.FK__Users__RoleID__4BAC3F29">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__UserI__6C190EBB" Association="Self.FK__Transacti__UserI__6C190EBB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="MasterServices" Association="Self.MasterServices">
+            <End Role="Masters" EntitySet="Masters" />
+            <End Role="Services" EntitySet="Services" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LavkaBaseModelContainer" CdmEntityContainer="LavkaBaseEntities">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Appointments">
+              <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="QueueNumber" ColumnName="QueueNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Balances">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Balances">
+              <MappingFragment StoreEntitySet="Balances">
+                <ScalarProperty Name="BalanceID" ColumnName="BalanceID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collections">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Collections">
+              <MappingFragment StoreEntitySet="Collections">
+                <ScalarProperty Name="CollectionID" ColumnName="CollectionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Masters">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Masters">
+              <MappingFragment StoreEntitySet="Masters">
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+                <ScalarProperty Name="Bio" ColumnName="Bio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QualificationLevels">
+            <EntityTypeMapping TypeName="LavkaBaseModel.QualificationLevels">
+              <MappingFragment StoreEntitySet="QualificationLevels">
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QualificationRequests">
+            <EntityTypeMapping TypeName="LavkaBaseModel.QualificationRequests">
+              <MappingFragment StoreEntitySet="QualificationRequests">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Reviews">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CollectionID" ColumnName="CollectionID" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LavkaBaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Transactions">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="LavkaBaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MasterServices" TypeName="LavkaBaseModel.MasterServices" StoreEntitySet="MasterServices">
+            <EndProperty Name="Masters">
+              <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+            </EndProperty>
+            <EndProperty Name="Services">
+              <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
